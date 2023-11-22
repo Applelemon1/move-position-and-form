@@ -15,8 +15,8 @@ const userSlice = createSlice({
         addUser : (state,action) =>{
             console.log('addUser action',action)
             state.push(action.payload)
-            let userData = JSON.stringify(current(state.users));
-            localStorage.setItem('users',userData)
+            // let userData = JSON.stringify(current(state.users));
+            // localStorage.setItem('users',userData)
         },
         deleteUSer:(state,action)=> {
             console.log('deleteUSer action',action)
