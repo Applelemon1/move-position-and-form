@@ -1,0 +1,53 @@
+$green : #6eda78;
+$yellow: #ffa200;
+
+.container {
+  text-align: center;
+  background: linear-gradient(45deg,$green ,$yellow );
+  width: 100vw;
+  height: 100vh;
+//   display: flex;
+// align-items: center;
+display: flex;
+  flex-direction: column;
+  // align-items: center; /* Centers items horizontally */
+  justify-content: center; 
+}
+
+.langButton{
+  display: flex;
+  justify-content: end;
+  padding: 20px;
+  position: fixed;
+  top: 0; /* Position at the top */
+  left: 95%; /* Centers the langButton horizontally */
+  transform: translateX(-50%);
+}
+
+.testBox{
+// border: 1px solid red;
+ display: flex;
+ justify-content: center;
+  
+ 
+}
+
+.box{
+  width: 250px;
+  height: auto;
+  background-color: white;
+  margin : 10px;
+  border-radius: 2px;
+  &:hover{
+    border: 3px solid black;
+  }
+  cursor: pointer;
+}
+
+.text-box{
+  text-align:start;
+  padding: 15px 20px;
+}
+
+
+

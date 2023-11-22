@@ -1,0 +1,222 @@
+$green : #6eda78;
+$yellow: #ffa200;
+$white : #ffffff;
+$grey: #747474;
+.container2 {
+    text-align: center;
+    background: linear-gradient(45deg,$green ,$yellow );
+    width: 100vw;
+    height: 100vh;
+
+  }
+
+.title{
+  display: flex;
+justify-content: baseline;
+padding-left: 1em;
+}
+
+.moveButton{
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.moveLeft{
+  cursor: pointer;
+  // margin-top: 0px;
+  border-radius: 8px;
+  width: 15vw;
+  height: 9em;
+  background-color: $white;
+  margin:0px 5px;
+  &:hover{
+    background-color: $yellow;
+  }
+  &:active{
+    background-color: $green;
+  }
+  display:inline-grid;
+  align-items: center;
+  justify-content: center;
+}
+.arrowLeft{
+  margin-top: 30px;
+  width: 0;
+	height: 0;
+	border-top: 40px solid transparent;
+	border-right: 80px solid $grey;
+	border-bottom: 40px solid transparent;
+}
+.moveUpDown{
+    cursor: pointer;
+  border-radius: 8px;
+  width: 30vw;
+  height: 9em;
+  background-color: $white;
+  margin:0px 5px;
+  &:hover{
+    background-color: $yellow;
+  }
+  &:active{
+    background-color: $green;
+  }
+  display: inline-grid;
+}
+.arrowUpDown{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
+}
+.arrowUp {
+	width: 0;
+	height: 0;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	border-bottom: 80px solid $grey;
+}
+.arrowDown {
+	width: 0;
+	height: 0;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	border-top: 80px solid $grey;
+}
+
+.moveRight{
+  cursor: pointer;
+  border-radius: 8px;
+  width: 15vw;
+  height: 9em;
+  background-color: $white;
+  margin:0px 5px; 
+  &:hover{
+    background-color: $yellow;
+  }
+  &:active{
+    background-color: $green;
+  }
+  display:inline-grid;
+  align-items: center;
+  justify-content: center;
+}
+.arrowRight{
+  margin-top: 30px;
+
+  width: 0;
+	height: 0;
+	border-top: 40px solid transparent;
+	border-left: 80px solid $grey;
+	border-bottom: 40px solid transparent;
+}
+
+
+
+.moveShape{
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  margin-top: 20px;
+}
+.moveShape-text{
+  background-color: $green;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 12px;
+  color: $white;
+}
+
+.line{
+  margin-top: 2em;
+  margin-left: 19em;
+  width: 61vw;
+  border-top: 0.5px solid $grey;
+ 
+}
+
+.shapes{
+  margin-top: 20px;
+  // border:1px solid red;
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+}
+.shapesBox{
+  // background-color: blue;
+  // border: 1px solid blue;
+  width: 62vw;
+  height: 50vh;
+}
+
+.shapesBoxUp{
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: flex-end;
+}
+.shapesBoxDown{
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.shapesMath{
+  cursor: pointer;
+
+  background-color: white;
+  border-radius: 8px;
+  width: 15vw;
+  height: 9em;
+  margin:0px 5px; 
+  &:hover{
+    background-color: $yellow;
+    .square , .circle 
+    , .oval , .trapezoid 
+    , .rectangle , .parallelogram{
+      background-color: $white;
+    }
+  }
+  &:active{
+    background-color: $green;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.square {
+
+  height: 90px;
+  width: 90px;
+  background-color: $grey;
+}
+.circle {
+  height: 90px;
+  width: 90px;
+  background-color: $grey;
+  border-radius: 50%;
+}
+.oval {
+  height: 90px;
+  width: 180px;
+  background-color: $grey;
+  border-radius: 50%;
+}
+.trapezoid {
+	border-bottom: 80px solid $grey;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	height: 0;
+	width: 105px;
+}
+.rectangle {
+  height: 80px;
+  width: 160px;
+  background-color: $grey;
+}
+.parallelogram {
+	width: 160px;
+	height: 80px;
+	transform: skew(20deg);
+	background: $grey;
+}

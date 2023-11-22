@@ -1,0 +1,52 @@
+$green : #6eda78;
+$yellow: #ffa200;
+$white : #ffffff;
+$grey: #747474;
+
+.HomeButton{
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+    position: fixed;
+    top: 6%; /* Position at the top */
+    left: 95%; /* Centers the langButton horizontally */
+    transform: translateX(-50%);
+  }
+
+  .formInput{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form{
+    padding: 1rem;
+    width: 60vw;
+    height: 46vh;
+    border: 2px solid black;
+    border-radius: 8px;
+  }
+
+
+  .ant-form-item-explain-error{
+    display: none;
+  }
+
+  .table-container{
+    
+    display: flex;
+    justify-content: center;
+  }
+
+  .table-data{
+    margin-top: 2rem;
+    // padding: 1rem;
+    // border: 2px solid black;
+    border-radius: 8px;
+    width: 80vw;
+    height: 3vh;
+  }
+
+  .choose-and-delete{
+    display: flex;
+    justify-content: start;
+  }
