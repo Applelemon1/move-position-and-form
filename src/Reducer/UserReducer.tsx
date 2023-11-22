@@ -14,7 +14,7 @@ const userSlice = createSlice({
     reducers:{
         addUser : (state,action) =>{
             console.log('addUser action',action)
-            state.users.push(action.payload)
+            state.push(action.payload)
             let userData = JSON.stringify(current(state.users));
             localStorage.setItem('users',userData)
         },
