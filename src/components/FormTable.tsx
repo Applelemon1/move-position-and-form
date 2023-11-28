@@ -20,14 +20,10 @@ import { useLocation } from "react-router-dom";
 import "./FormTable.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser, deleteUSer, updateUser } from "../Reducer/UserReducer";
+import { addUser, deleteUSer, updateUser,deleteSelectedUSer } from "../Reducer/UserReducer";
 
 function FormTable() {
   const users = useSelector((state: any) => state.users);
-  // console.log("users", users.lenght);
-//   const [userss,setUserss] =useState(()=>{
-//     return JSON.parse(localStorage.getItem('dataKey')!) || []
-// })
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation(["home"]);
   const [lang, setLang] = useState("EN");
@@ -35,7 +31,8 @@ function FormTable() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [nowEdit, setNowEdit] = useState("");
-  const [chooseAll,setChooseAll] = useState<any | undefined>({});
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   const items: MenuProps["items"] = [
     {
@@ -132,60 +129,35 @@ function FormTable() {
   };
 
   const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
+    selectedRowKeys,
+    onChange: (keys : any, selectedRows: any[]) => {
       console.log(`selectedRowKeys: `, 'selectedRows: ', selectedRows);
+      setSelectedRowKeys(keys);
+      setSelectAll(keys.length === users.length);
     },
-    // getCheckboxProps: (record: any) => ({
-    //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    //   name: record.name,
-    // }),
   };
-  const data= [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-    },
-    {
-      key: '4',
-      name: 'Disabled User',
-      age: 99,
-      address: 'Sydney No. 1 Lake Park',
-    },
-  ];
+
   const columns = [
     {
       title: t("name"),
       dataIndex: "name",
-      sorter: true,
+      sorter: (a : any, b : any) => a.name.localeCompare(b.name),
+      // sortDirections: ['descend']
     },
     {
       title: t("sex"),
       dataIndex: "sex",
-      sorter: true,
+      sorter: (a : any, b : any) => a.sex.localeCompare(b.sex),
     },
     {
       title: t("phone"),
       dataIndex: "phone",
-      sorter: true,
+      sorter: (a : any, b : any) => a.phone - b.phone,
     },
     {
       title: t("national"),
       dataIndex: "national",
-      sorter: true,
+      sorter: (a : any, b : any) => a.national.localeCompare(b.national),
     },
     {
       title: t("action"),
@@ -207,9 +179,17 @@ function FormTable() {
     },
   ];
 
-  // const handleRowSelectionChange = (enable: boolean) => {
-  //   setChooseAll(enable ? {} : undefined);
-  // };
+  const handleSelectAll = (e : any) => {
+    const keys = e.target.checked ? users.map((row : any) => row.key) : [];
+    setSelectedRowKeys(keys);
+    setSelectAll(e.target.checked);
+  };
+
+  const deletedselectedData = () => {
+    dispatch(deleteSelectedUSer(selectedRowKeys))
+    setSelectedRowKeys([])
+    setSelectAll(false)
+  }
 
   return (
     <div className="container2">
@@ -373,13 +353,12 @@ function FormTable() {
         <div className="table-data">
           <div className="choose-and-delete">
             <Checkbox
-              // checked={!!chooseAll}
-              // onChange={handleRowSelectionChange}
+              checked={selectAll} onChange={handleSelectAll}
               style={{ display: "flex", alignItems: "center" }}
             >
               {t("choose all")}
             </Checkbox>
-            <Button>{t("delete data")}</Button>
+            <Button onClick={()=>deletedselectedData()}>{t("delete data")}</Button>
           </div>
 
           <div className="table-row">
@@ -388,13 +367,11 @@ function FormTable() {
               // {...tableProps}
               pagination={{}}
               columns={columns}
-              // dataSource={userss.lenght == 0 ? users : userss}
               dataSource={users}
               // dataSource={data}
               scroll={scroll}
               size="middle"
               rowSelection={{
-                type: 'checkbox',
                 ...rowSelection,
               }}
             />
