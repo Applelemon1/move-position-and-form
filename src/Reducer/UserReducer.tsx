@@ -1,33 +1,28 @@
-import { createSlice,current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-
-const data : any = [];
-// const initialState={
-//     // @ts-ignore
-
-//     users: JSON.parse(localStorage?.getItem('users')) 
-// }
+const persistedState = localStorage.getItem('reduxState')
+  ? JSON.parse(localStorage.getItem('reduxState') || '{}')
+  :[];
 
 const userSlice = createSlice({
     name: 'users',
-    initialState:data,
+    initialState:persistedState,
     reducers:{
         addUser : (state,action) =>{
             console.log('addUser action',action)
             state.push(action.payload)
-            // let userData = JSON.stringify(current(state.users));
-            // localStorage.setItem('users',userData)
+
         },
         deleteUSer:(state,action)=> {
             console.log('deleteUSer action',action)
-            const{id} = action.payload
-            const uu = state.find((user : any) => user.id == id)
-            if (uu) return state.filter( (f: any) => f.id !== id)
+            const{key} = action.payload
+            const uu = state.find((user : any) => user.key == key)
+            if (uu) return state.filter( (f: any) => f.key !== key)
         },
         updateUser : (state,action)=> {
             console.log('updateUser action',action)
-            const {id , name,sex,phone,national} = action.payload
-            const uu = state.find((user: any) => user.id == id)
+            const {key , name,sex,phone,national} = action.payload
+            const uu = state.find((user: any) => user.key == key)
             if(uu){
                 uu.name = name;
                 uu.sex = sex;

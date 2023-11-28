@@ -35,7 +35,7 @@ function FormTable() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [nowEdit, setNowEdit] = useState("");
-
+  const [chooseAll,setChooseAll] = useState<any | undefined>({});
 
   const items: MenuProps["items"] = [
     {
@@ -60,7 +60,7 @@ function FormTable() {
     console.log("Success:", user);
     if (nowEdit !== "") {
       dispatch(updateUser({
-        id : nowEdit,
+        key : nowEdit,
         name: user.firstname,
         sex: user.gender,
         phone: user.phone,
@@ -70,7 +70,7 @@ function FormTable() {
     } else {
       dispatch(
         addUser({
-          id: String(Math.random()),
+          key : String(Math.random()),
           name: user.firstname,
           sex: user.gender,
           phone: user.phone,
@@ -88,7 +88,7 @@ function FormTable() {
   };
 
   const handleEdit = (user : any) => {
-    setNowEdit(user.id);
+    setNowEdit(user.key);
     form.setFieldsValue({
       firstname: user.name,
       gender: user.sex,
@@ -118,14 +118,10 @@ function FormTable() {
     }
   }, []);
 
-  // useEffect(()=>{
-  //   window.localStorage.setItem("dataKey", JSON.stringify(users));
-  //   setUserss(users)
-  // },[users])
+  useEffect(()=>{
+    window.localStorage.setItem("reduxState", JSON.stringify(users));
+  },[users])
 
-  // useEffect(() => {
-  //   // setUsers('')
-  // }, [userss]);
 
   const scroll: { x?: number | string; y?: number | string } = {};
   scroll.y = 100;
@@ -135,6 +131,41 @@ function FormTable() {
     form.resetFields();
   };
 
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
+      console.log(`selectedRowKeys: `, 'selectedRows: ', selectedRows);
+    },
+    // getCheckboxProps: (record: any) => ({
+    //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    //   name: record.name,
+    // }),
+  };
+  const data= [
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sydney No. 1 Lake Park',
+    },
+    {
+      key: '4',
+      name: 'Disabled User',
+      age: 99,
+      address: 'Sydney No. 1 Lake Park',
+    },
+  ];
   const columns = [
     {
       title: t("name"),
@@ -164,7 +195,7 @@ function FormTable() {
           <Button
             type="primary"
             danger
-            onClick={(e) => dispatch(deleteUSer({ id: user.id }))}
+            onClick={(e) => dispatch(deleteUSer({ key: user.key }))}
           >
             {t("delete")}
           </Button>
@@ -175,6 +206,10 @@ function FormTable() {
       ),
     },
   ];
+
+  // const handleRowSelectionChange = (enable: boolean) => {
+  //   setChooseAll(enable ? {} : undefined);
+  // };
 
   return (
     <div className="container2">
@@ -338,7 +373,8 @@ function FormTable() {
         <div className="table-data">
           <div className="choose-and-delete">
             <Checkbox
-              // onChange={onChange}
+              // checked={!!chooseAll}
+              // onChange={handleRowSelectionChange}
               style={{ display: "flex", alignItems: "center" }}
             >
               {t("choose all")}
@@ -354,9 +390,13 @@ function FormTable() {
               columns={columns}
               // dataSource={userss.lenght == 0 ? users : userss}
               dataSource={users}
+              // dataSource={data}
               scroll={scroll}
               size="middle"
-              rowSelection={{}}
+              rowSelection={{
+                type: 'checkbox',
+                ...rowSelection,
+              }}
             />
           </div>
         </div>
